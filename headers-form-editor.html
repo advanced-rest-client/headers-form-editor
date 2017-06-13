@@ -237,7 +237,10 @@ Custom property | Description | Default
     Polymer({
       is: 'headers-form-editor',
 
-      behaviors: [ArcBehaviors.HeadersParserBehavior],
+      behaviors: [
+        ArcBehaviors.HeadersParserBehavior,
+        Polymer.IronValidatableBehavior
+      ],
 
       /**
        * Fired when the headers value changed.
