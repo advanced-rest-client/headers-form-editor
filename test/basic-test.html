@@ -30,15 +30,76 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-fixture>
 
     <script>
-    /* global suite, test, fixture, assert */
+    /* global fixture, assert, sinon */
+    /* jshint esnext: true */
+    // jscs:disable maximumLineLength
     suite('basic', function() {
       var element;
       setup(function() {
         element = fixture('basic');
       });
-      test('`headers-form-editor` should be initialized', function() {
-        assert.equal(element.isAttached, true, 'element.isAttached equals true');
+
+      test('model is empty', function() {
+        assert.lengthOf(element.headersModel, 0);
       });
+
+      test('generates model from value', function() {
+        element.value = 'x-test: value';
+        assert.lengthOf(element.headersModel, 1, 'model has one item');
+        var model = [{
+          name: 'x-test',
+          value: 'value',
+          type: 'string',
+          isEnum: false,
+          inputLabel: 'Header value',
+          inputType: 'text',
+          inputPlaceholder: undefined,
+          inputFloatLabel: undefined
+        }];
+        assert.deepEqual(element.headersModel, model, 'model has default values');
+      });
+
+      test('createModel() creates a default model', function() {
+        const createdModel = element.createModel();
+        const model = {
+          name: '',
+          value: '',
+          type: 'string',
+          isEnum: false,
+          inputLabel: 'Header value',
+          inputType: 'text',
+          inputPlaceholder: undefined,
+          inputFloatLabel: undefined
+        };
+        assert.deepEqual(createdModel, model);
+      });
+
+      test('Fires request-headers-changed event', function() {
+        var spy = sinon.stub();
+        element.addEventListener('request-headers-changed', spy);
+        element._internalValueChange = true;
+        element.value = 'x-test:value';
+        assert.isTrue(spy.calledOnce);
+      });
+
+      test('Fires request-headers-changed event on model value change', function() {
+        var spy = sinon.stub();
+        const createdModel = element.createModel();
+        createdModel.name = 'content-type';
+        element.headersModel = [createdModel];
+        element.addEventListener('request-headers-changed', spy);
+        element.set('headersModel.0.value', 'test');
+        assert.isTrue(spy.calledOnce);
+      });
+
+      test('Updated value on model change', function() {
+        const createdModel = element.createModel();
+        createdModel.name = 'content-type';
+        element.headersModel = [createdModel];
+        element.set('headersModel.0.value', 'test');
+        assert.equal(element.value, 'content-type: test');
+      });
+
     });
     </script>
 
