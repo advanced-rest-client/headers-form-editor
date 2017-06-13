@@ -343,9 +343,6 @@ Custom property | Description | Default
           init = undefined;
         }
         init = init || {};
-        init.type = init.type || 'string';
-        init.value = init.value || '';
-        init.name = init.name || '';
         var obj = this.createModel(init);
         if (!this.headersModel) {
           this.set('headersModel', [obj]);
@@ -359,6 +356,10 @@ Custom property | Description | Default
        * @param {object} item Map of any of allowed model properties.
        */
       createModel: function(item) {
+        item = item || {};
+        item.value = item.value || '';
+        item.name = item.name || '';
+        item.type = item.type || 'string';
         item.isEnum = !!(item.name && item.enum && item.enum.length);
         item.inputLabel = item.isEnum ? item.name : 'Header value';
         if (item.required) {
@@ -556,7 +557,6 @@ Custom property | Description | Default
        * @return {[type]}
        */
       _onHeaderNameSelected: function(e) {
-        // var index = e.model.get('index');
         var index = this.$.headersList.indexForElement(this.activeHeaderNameField);
         if (index || index === 0) {
           this.set(['headersModel', index, 'name'], e.detail.value);
