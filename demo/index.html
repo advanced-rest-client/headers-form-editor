@@ -51,6 +51,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <output>[[headers2value]]</output>
       </template>
     </arc-demo-snippet>
+
+    <h3>Predefined values</h3>
+    <arc-demo-snippet hmodel='[{"name":"Content-Type","value":"", "required":true, "inputLabel":"Enter content type"},{"name":"X-Token","enum":["token #1","token #2","token #3"], "required":true, "isEnum": true, "inputLabel": "X-Token","description":"Select debug token to use with this API."}]'>
+      <template>
+        <headers-form-editor value="{{headers2value}}" headers-model="[[hmodel]]"></headers-form-editor>
+        <output>[[headers2value]]</output>
+      </template>
+    </arc-demo-snippet>
+
+    <h3>The narow layout</h3>
+    <arc-demo-snippet hmodel='[{"name":"Content-Type","value":"", "required":true, "inputLabel":"Header value"},{"name":"X-Token","enum":["token #1","token #2","token #3"], "required":true, "isEnum": true, "inputLabel": "X-Token","description":"Select debug token to use with this API."}]'>
+      <template>
+        <headers-form-editor narrow value="{{headers2value}}" headers-model="[[hmodel]]"></headers-form-editor>
+        <output>[[headers2value]]</output>
+      </template>
+    </arc-demo-snippet>
   </div>
 </body>
 </html>
