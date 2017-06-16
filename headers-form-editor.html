@@ -31,6 +31,7 @@ the License.
 <link rel="import" href="../headers-parser-behavior/headers-parser-behavior.html">
 <link rel="import" href="../marked-element/marked-element.html">
 <link rel="import" href="../markdown-styles/markdown-styles.html">
+
 <!--
 A headers form to be used to render a form of HTTP headers.
 
@@ -140,12 +141,16 @@ Custom property | Description | Default
       padding-bottom: 0;
     }
 
-    .help-icon {
+    .help-icon,
+    .helper-icon,
+    .delete-icon {
       color: var(--inline-help-icon-color, rgba(0, 0, 0, 0.24));
       transition: color 0.2s linear;
     }
 
-    .help-icon:hover {
+    .help-icon:hover,
+    .helper-icon:hover,
+    .delete-icon:hover {
       color: var(--inline-help-icon-color-hover, var(--accent-color, rgba(0, 0, 0, 0.74)));
     }
 
@@ -204,6 +209,9 @@ Custom property | Description | Default
                 </paper-input-container>
                 <paper-input label="[[item.inputLabel]]" id="rrpv-[[index]]" value="{{item.value}}" required$="[[item.required]]" pattern="[[item.pattern]]" name="[[item.name]]" auto-validate type="[[item.inputType]]" min="[[item.minimum]]" max="[[item.maximum]]" maxlength="[[item.maxLength]]" always-float-label="[[item.inputFloatLabel]]" placeholder="[[item.inputPlaceholder]]"></paper-input>
               </div>
+            </template>
+            <template is="dom-if" if="[[item.fillSupport]]">
+              <paper-icon-button title="Open header editor" class="helper-icon" suffix icon="arc:edit" on-tap="_requestHeaderSupport"></paper-icon-button>
             </template>
             <template is="dom-if" if="[[!item.required]]">
               <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:close" on-tap="_removeHeader"></paper-icon-button>
@@ -436,10 +444,12 @@ Custom property | Description | Default
         }
         if (item.name) {
           if (this._queryHeaderInfo(item.name)) {
+            this._lookupHeadersSupport(item.name, index);
             return;
           }
         }
         this._updateCustomHeaderMeta(index);
+        this._lookupHeadersSupport(item.name, index);
       },
 
       /**
@@ -568,6 +578,7 @@ Custom property | Description | Default
           if (!this._queryHeaderInfo(e.detail.value)) {
             this._updateCustomHeaderMeta(index);
           }
+          this._lookupHeadersSupport(e.detail.value, index);
         }
       },
       /**
@@ -613,6 +624,7 @@ Custom property | Description | Default
               item = this._headersModelFromObject(headers[i]);
               this.push('headersModel', item);
               this._queryHeaderInfo(item.name);
+              this._lookupHeadersSupport(item.name, this.headersModel.length - 1);
             }
           }
           // remove headers that are currently in the form but they are not set in
@@ -630,6 +642,7 @@ Custom property | Description | Default
             item = this._headersModelFromObject(headers[i]);
             this.push('headersModel', item);
             this._queryHeaderInfo(item.name);
+            this._lookupHeadersSupport(item.name, this.headersModel.length - 1);
           }
         }
         this._internalValueChange = false;
@@ -689,6 +702,48 @@ Custom property | Description | Default
       _autocompleteClosed: function() {
         this._setActiveHeaderNameField(undefined);
         this._setActiveAutocompleteNameField(undefined);
+      },
+      /**
+       * Queries DOM (using event bus) for an element that support a header.
+       * Sends the `headers-support-lookup` header with the header name
+       * and if the event is canceled then sets a flag that for this particular
+       * header support is available.
+       *
+       * See advanced-rest-client/headers-support-behavior element for more
+       * details.
+       *
+       * @param {String} name Header name to query for support for.
+       * @param {Number} index Index of the header in the model array.
+       */
+      _lookupHeadersSupport: function(name, index) {
+        var event = this.fire('headers-support-lookup', {
+          header: name
+        }, {
+          cancelable: true
+        });
+        this.set(['headersModel', index, 'fillSupport'], event.defaultPrevented);
+      },
+      /**
+       * Requests header fill support from the support element.
+       * Sends the `headers-support-requested` custom event to activate helper.
+       * If the event is not canceled then it sets a falg that support is not
+       * available.
+       */
+      _requestHeaderSupport: function(e) {
+        var model = this.$.headersList.modelForElement(e.target);
+        var item = model.get('item');
+
+        var event = this.fire('headers-support-requested', {
+          header: item.name,
+          value: item.value
+        }, {
+          cancelable: true
+        });
+
+        if (!event.defaultPrevented) {
+          var index = model.get(index);
+          this.set(['headersModel', index, 'fillSupport'], false);
+        }
       }
     });
   })();
