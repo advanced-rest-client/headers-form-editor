@@ -1,3 +1,13 @@
+<a name="0.1.2"></a>
+## [0.1.2](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.1...v0.1.2) (2017-06-16)
+
+
+### Update
+
+* Added support for querying for headers fill support and activating the support ([b14b4e18a1ed15af708575c115b9cbf74643a2ce](https://github.com/advanced-rest-client/headers-form-editor/commit/b14b4e18a1ed15af708575c115b9cbf74643a2ce))
+
+
+
 <a name="0.1.1"></a>
 ## 0.1.1 (2017-06-13)
 
