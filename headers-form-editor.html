@@ -81,6 +81,12 @@ Property | Type | Description | Default
 Custom property | Description | Default
 ----------------|-------------|----------
 `--headers-form-editor` | Mixin applied to the element | `{}`
+`--headers-form-row` | Mixin applied to every form row | `{}`
+`--headers-form-editor-input-label-color` | Color of the input label | `--raml-headers-form-input-label-color` or `rgba(0, 0, 0, 0.48)`
+`--headers-form-editor-input-label-color-required` | Color of the input label if the form control is required. | `--raml-headers-form-required-input-label-color` or `rgba(0, 0, 0, 0.72)`
+`--inline-fom-action-icon-color` | Color of the icons in the form editor | `rgba(0, 0, 0, 0.74)`
+`--inline-fom-action-icon-color-hover` | Color of the icons in the form editor when hovering | `--accent-color` or `rgba(0, 0, 0, 0.74)`
+`--inline-documentation-color` | Color of the inline documentation text | `rgba(0, 0, 0, 0.87)`
 
 @group UI Elements
 @element headers-form-editor
@@ -105,7 +111,7 @@ Custom property | Description | Default
     }
 
     .header-value {
-      @apply(--raml-headers-form-row);
+      @apply(--headers-form-row);
       position: relative;
     }
 
@@ -144,14 +150,14 @@ Custom property | Description | Default
     .help-icon,
     .helper-icon,
     .delete-icon {
-      color: var(--inline-help-icon-color, rgba(0, 0, 0, 0.24));
+      color: var(--inline-fom-action-icon-color, rgba(0, 0, 0, 0.74));
       transition: color 0.2s linear;
     }
 
     .help-icon:hover,
     .helper-icon:hover,
     .delete-icon:hover {
-      color: var(--inline-help-icon-color-hover, var(--accent-color, rgba(0, 0, 0, 0.74)));
+      color: var(--inline-fom-action-icon-color-hover, var(--accent-color, rgba(0, 0, 0, 0.74)));
     }
 
     .value-input {
