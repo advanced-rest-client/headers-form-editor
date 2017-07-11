@@ -220,7 +220,7 @@ Custom property | Description | Default
               <paper-icon-button title="Open header editor" class="helper-icon" suffix icon="arc:edit" on-tap="_requestHeaderSupport"></paper-icon-button>
             </template>
             <template is="dom-if" if="[[!item.required]]">
-              <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:close" on-tap="_removeHeader"></paper-icon-button>
+              <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:close" on-tap="_removeHeader" on-focus="_valueFieldLeft"></paper-icon-button>
             </template>
             <template is="dom-if" if="[[item.description]]">
               <paper-icon-button title="Display documentation" class="help-icon" suffix icon="arc:help" on-tap="_openDocs"></paper-icon-button>
@@ -374,6 +374,7 @@ Custom property | Description | Default
         item.value = item.value || '';
         item.name = item.name || '';
         item.type = item.type || 'string';
+        item.fillSupport = item.fillSupport || false;
         item.isEnum = !!(item.name && item.enum && item.enum.length);
         item.inputLabel = item.isEnum ? item.name : 'Header value';
         if (item.required) {
@@ -749,6 +750,25 @@ Custom property | Description | Default
         if (!event.defaultPrevented) {
           var index = model.get(index);
           this.set(['headersModel', index, 'fillSupport'], false);
+        }
+      },
+      /**
+       * Adds another field value when the user leave the value input and:
+       * - current item is not an enum
+       * - name has been provided
+       */
+      _valueFieldLeft: function(e) {
+        var model = this.$.headersList.modelForElement(e.target);
+        var index = model.get('index');
+        if (this.headersModel.length - 1 !== index) {
+          return;
+        }
+        var item = model.get('item');
+        if (item.isEnum) {
+          return;
+        }
+        if (item.name) {
+          this.add();
         }
       }
     });

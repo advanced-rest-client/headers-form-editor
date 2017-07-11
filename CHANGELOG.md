@@ -1,3 +1,17 @@
+<a name="0.1.6"></a>
+## [0.1.6](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.5...v0.1.6) (2017-07-11)
+
+
+### Fix
+
+* Fixed failing tests and updated model generation function. ([e2a0aca20b27e514fb493c92fb5f138e3baf9902](https://github.com/advanced-rest-client/headers-form-editor/commit/e2a0aca20b27e514fb493c92fb5f138e3baf9902))
+
+### New
+
+* Added support to aut-add next row when leaving value field. ([ee3bfd9f532f0e343e2e48536212321f3482eba6](https://github.com/advanced-rest-client/headers-form-editor/commit/ee3bfd9f532f0e343e2e48536212321f3482eba6))
+
+
+
 <a name="0.1.5"></a>
 ## [0.1.5](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.4...v0.1.5) (2017-06-19)
 
