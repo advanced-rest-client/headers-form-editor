@@ -374,6 +374,7 @@ Custom property | Description | Default
         item.value = item.value || '';
         item.name = item.name || '';
         item.type = item.type || 'string';
+        item.fillSupport = item.fillSupport || false;
         item.isEnum = !!(item.name && item.enum && item.enum.length);
         item.inputLabel = item.isEnum ? item.name : 'Header value';
         if (item.required) {
