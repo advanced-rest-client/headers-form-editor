@@ -1,3 +1,21 @@
+<a name="0.1.8"></a>
+## [0.1.8](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.7...v0.1.8) (2017-07-12)
+
+
+### Fix
+
+* Fixed behavior when selecting autocomplete with the pointer and it is closing because lossing focus on name field. ([64c010ebe577fc7592899f5aeaed741fb30bb34d](https://github.com/advanced-rest-client/headers-form-editor/commit/64c010ebe577fc7592899f5aeaed741fb30bb34d))
+* Now autocomplete will be closed on name field blur. ([ae22879621fcb2d0d13bcefd151ea6cfcd6d3086](https://github.com/advanced-rest-client/headers-form-editor/commit/ae22879621fcb2d0d13bcefd151ea6cfcd6d3086))
+
+### Update
+
+* Added `composed` flag to the event. ([1b4fc629a8a1df6edaac9e6b49e447d9963ee205](https://github.com/advanced-rest-client/headers-form-editor/commit/1b4fc629a8a1df6edaac9e6b49e447d9963ee205))
+* Added headers support to the demo page. ([6f5abec45d1ed35ab23bc2d3364b596f4d643424](https://github.com/advanced-rest-client/headers-form-editor/commit/6f5abec45d1ed35ab23bc2d3364b596f4d643424))
+* Added paper-tooltip to display labels over buttons ([11da3d7ad4613e9d186cd9e60c36a13cbb8610f6](https://github.com/advanced-rest-client/headers-form-editor/commit/11da3d7ad4613e9d186cd9e60c36a13cbb8610f6))
+* Internal redesign of the element to simplify compytations. ([e02e1c775866fb0d6e7a6c7aa0954f24bd1d08f4](https://github.com/advanced-rest-client/headers-form-editor/commit/e02e1c775866fb0d6e7a6c7aa0954f24bd1d08f4))
+
+
+
 <a name="0.1.7"></a>
 ## [0.1.7](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.6...v0.1.7) (2017-07-11)
 
