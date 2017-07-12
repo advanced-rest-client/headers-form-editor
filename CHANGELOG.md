@@ -1,3 +1,39 @@
+<a name="0.1.7"></a>
+## [0.1.7](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.6...v0.1.7) (2017-07-11)
+
+
+
+
+<a name="0.1.6"></a>
+## [0.1.6](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.5...v0.1.6) (2017-07-11)
+
+
+### Fix
+
+* Fixed failing tests and updated model generation function. ([e2a0aca20b27e514fb493c92fb5f138e3baf9902](https://github.com/advanced-rest-client/headers-form-editor/commit/e2a0aca20b27e514fb493c92fb5f138e3baf9902))
+
+### New
+
+* Added support to aut-add next row when leaving value field. ([ee3bfd9f532f0e343e2e48536212321f3482eba6](https://github.com/advanced-rest-client/headers-form-editor/commit/ee3bfd9f532f0e343e2e48536212321f3482eba6))
+
+
+
+<a name="0.1.5"></a>
+## [0.1.5](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.4...v0.1.5) (2017-06-19)
+
+
+
+
+<a name="0.1.4"></a>
+## [0.1.4](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.3...v0.1.4) (2017-06-19)
+
+
+### Update
+
+* Update styles variable names for theming ([240843006b357d6fc6eaae175b79fe7cac79b9b5](https://github.com/advanced-rest-client/headers-form-editor/commit/240843006b357d6fc6eaae175b79fe7cac79b9b5))
+
+
+
 <a name="0.1.3"></a>
 ## [0.1.3](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.2...v0.1.3) (2017-06-16)
 

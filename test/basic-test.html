@@ -54,8 +54,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           inputLabel: 'Header value',
           inputType: 'text',
           inputPlaceholder: undefined,
-          inputFloatLabel: undefined
+          inputFloatLabel: undefined,
+          fillSupport: false
         }];
+        Object.keys(element.headersModel[0]).forEach(key => {
+          console.log('Key', key, ', value expected:', model[0][key], 'value received:', element.headersModel[0][key]);
+        });
         assert.deepEqual(element.headersModel, model, 'model has default values');
       });
 
@@ -69,7 +73,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           inputLabel: 'Header value',
           inputType: 'text',
           inputPlaceholder: undefined,
-          inputFloatLabel: undefined
+          inputFloatLabel: undefined,
+          fillSupport: false
         };
         assert.deepEqual(createdModel, model);
       });
