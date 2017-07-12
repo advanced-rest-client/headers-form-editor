@@ -17,8 +17,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../../web-component-tester/browser.js"></script>
     <script src="../../iron-test-helpers/test-helpers.js"></script>
     <script src="../../iron-test-helpers/mock-interactions.js"></script>
-
-    <!-- Step 1: import the element to test -->
     <link rel="import" href="../headers-form-editor.html">
   </head>
   <body>
@@ -40,43 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('model is empty', function() {
-        assert.lengthOf(element.headersModel, 0);
-      });
-
-      test('generates model from value', function() {
-        element.value = 'x-test: value';
-        assert.lengthOf(element.headersModel, 1, 'model has one item');
-        var model = [{
-          name: 'x-test',
-          value: 'value',
-          type: 'string',
-          isEnum: false,
-          inputLabel: 'Header value',
-          inputType: 'text',
-          inputPlaceholder: undefined,
-          inputFloatLabel: undefined,
-          fillSupport: false
-        }];
-        Object.keys(element.headersModel[0]).forEach(key => {
-          console.log('Key', key, ', value expected:', model[0][key], 'value received:', element.headersModel[0][key]);
-        });
-        assert.deepEqual(element.headersModel, model, 'model has default values');
-      });
-
-      test('createModel() creates a default model', function() {
-        const createdModel = element.createModel();
-        const model = {
-          name: '',
-          value: '',
-          type: 'string',
-          isEnum: false,
-          inputLabel: 'Header value',
-          inputType: 'text',
-          inputPlaceholder: undefined,
-          inputFloatLabel: undefined,
-          fillSupport: false
-        };
-        assert.deepEqual(createdModel, model);
+        assert.lengthOf(element.model, 0);
       });
 
       test('Fires request-headers-changed event', function() {
@@ -91,17 +53,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var spy = sinon.stub();
         const createdModel = element.createModel();
         createdModel.name = 'content-type';
-        element.headersModel = [createdModel];
+        element.model = [createdModel];
         element.addEventListener('request-headers-changed', spy);
-        element.set('headersModel.0.value', 'test');
+        element.set('model.0.value', 'test');
         assert.isTrue(spy.calledOnce);
       });
 
       test('Updated value on model change', function() {
         const createdModel = element.createModel();
         createdModel.name = 'content-type';
-        element.headersModel = [createdModel];
-        element.set('headersModel.0.value', 'test');
+        element.model = [createdModel];
+        element.set('model.0.value', 'test');
         assert.equal(element.value, 'content-type: test');
       });
 
