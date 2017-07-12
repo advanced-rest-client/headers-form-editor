@@ -210,10 +210,34 @@ Custom property | Description | Default
               <div class="input">
                 <paper-input-container class="header-name" auto-validate>
                   <label>Header name</label>
-                  <input is="iron-input" class="name-change-input" on-focus="_headerNameFocus" on-blur="_headerNameBlur" type="text" value="{{item.name::input}}" required pattern="\S*" on-input="_headerNameChanged"/>
+                  <input
+                    is="iron-input"
+                    class="name-change-input"
+                    on-focus="_headerNameFocus"
+                    type="text"
+                    value="{{item.name::input}}"
+                    required
+                    pattern="\S*"
+                    on-input="_headerNameChanged"/>
                   <paper-input-error>Header name is not valid</paper-input-error>
                 </paper-input-container>
-                <paper-input label="[[item.inputLabel]]" id="rrpv-[[index]]" value="{{item.value}}" required$="[[item.required]]" pattern="[[item.pattern]]" name="[[item.name]]" auto-validate type="[[item.inputType]]" min="[[item.minimum]]" max="[[item.maximum]]" maxlength="[[item.maxLength]]" always-float-label="[[item.inputFloatLabel]]" placeholder="[[item.inputPlaceholder]]"></paper-input>
+
+                <paper-input-container class="header-value" auto-validate always-float-label$="[[item.inputFloatLabel]]">
+                  <label>[[item.inputLabel]]</label>
+                  <input is="iron-input"
+                    name$="[[item.name]]"
+                    on-focus="_headerValueFocus"
+                    type$="[[item.inputType]]"
+                    value="{{item.value::input}}"
+                    pattern$="[[item.pattern]]"
+                    min$="[[item.minimum]]"
+                    max$="[[item.maximum]]"
+                    minlength$="[[item.minLength]]"
+                    maxlength$="[[item.maxLength]]"
+                    placeholder$="[[item.inputPlaceholder]]"
+                    required$="[[item.required]]" />
+                  <paper-input-error>Header value is not valid</paper-input-error>
+                </paper-input-container>
               </div>
             </template>
             <template is="dom-if" if="[[!item.required]]">
@@ -404,7 +428,7 @@ Custom property | Description | Default
         if (item.inputPlaceholder) {
           item.inputFloatLabel = true;
         } else {
-          item.inputFloatLabel = undefined;
+          item.inputFloatLabel = false;
         }
 
         if (item.required && typeof item.default !== 'undefined' && !item.value) {
@@ -445,7 +469,7 @@ Custom property | Description | Default
         this._setActiveAutocompleteNameField(elm);
       },
 
-      _headerNameBlur: function() {
+      _headerValueFocus: function() {
         if (this.activeAutocompleteNameField) {
           this.activeAutocompleteNameField.opened = false;
         }
@@ -530,7 +554,7 @@ Custom property | Description | Default
 
         this.set(['headersModel', index, 'description'], item.description);
         this.set(['headersModel', index, 'example'], item.example);
-        this.set(['headersModel', index, 'inputFloatLabel'], item.inputFloatLabel);
+        this.set(['headersModel', index, 'inputFloatLabel'], item.inputFloatLabel || false);
         this.set(['headersModel', index, 'inputPlaceholder'], item.inputPlaceholder);
       },
 
