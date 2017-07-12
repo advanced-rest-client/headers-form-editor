@@ -1,3 +1,13 @@
+<a name="0.1.10"></a>
+## [0.1.10](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.9...v0.1.10) (2017-07-12)
+
+
+### Fix
+
+* Fixed position of paper-autocomplete ([3746e78dcb8392e4828d4998e10547b787a3dd26](https://github.com/advanced-rest-client/headers-form-editor/commit/3746e78dcb8392e4828d4998e10547b787a3dd26))
+
+
+
 <a name="0.1.9"></a>
 ## [0.1.9](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.8...v0.1.9) (2017-07-12)
 
