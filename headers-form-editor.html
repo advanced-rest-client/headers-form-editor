@@ -31,7 +31,7 @@ the License.
 <link rel="import" href="../headers-parser-behavior/headers-parser-behavior.html">
 <link rel="import" href="../marked-element/marked-element.html">
 <link rel="import" href="../markdown-styles/markdown-styles.html">
-
+<link rel="import" href="../paper-tooltip/paper-tooltip.html">
 <!--
 A headers form to be used to render a form of HTTP headers.
 
@@ -216,14 +216,23 @@ Custom property | Description | Default
                 <paper-input label="[[item.inputLabel]]" id="rrpv-[[index]]" value="{{item.value}}" required$="[[item.required]]" pattern="[[item.pattern]]" name="[[item.name]]" auto-validate type="[[item.inputType]]" min="[[item.minimum]]" max="[[item.maximum]]" maxlength="[[item.maxLength]]" always-float-label="[[item.inputFloatLabel]]" placeholder="[[item.inputPlaceholder]]"></paper-input>
               </div>
             </template>
-            <template is="dom-if" if="[[item.fillSupport]]">
-              <paper-icon-button title="Open header editor" class="helper-icon" suffix icon="arc:edit" on-tap="_requestHeaderSupport"></paper-icon-button>
-            </template>
             <template is="dom-if" if="[[!item.required]]">
-              <paper-icon-button title="Remove header" class="delete-icon" suffix icon="arc:close" on-tap="_removeHeader"></paper-icon-button>
+              <span>
+                <paper-icon-button class="delete-icon" suffix icon="arc:close" on-tap="_removeHeader"></paper-icon-button>
+                <paper-tooltip animation-delay="200">Remove header</paper-tooltip>
+              </span>
+            </template>
+            <template is="dom-if" if="[[item.fillSupport]]">
+              <span>
+                <paper-icon-button class="helper-icon" suffix icon="arc:edit" on-tap="_requestHeaderSupport"></paper-icon-button>
+                <paper-tooltip animation-delay="200">Open header editor</paper-tooltip>
+              </span>
             </template>
             <template is="dom-if" if="[[item.description]]">
-              <paper-icon-button title="Display documentation" class="help-icon" suffix icon="arc:help" on-tap="_openDocs"></paper-icon-button>
+              <span>
+                <paper-icon-button class="help-icon" suffix icon="arc:help" on-tap="_openDocs"></paper-icon-button>
+                <paper-tooltip animation-delay="200">Show dosumentation for the header</paper-tooltip>
+              </span>
             </template>
           </div>
           <template is="dom-if" if="[[item.description]]">
