@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../../arc-demo-helpers/arc-demo-snippet.html">
-
+  <link rel="import" href="../../headers-support/headers-support.html">
   <link rel="import" href="../headers-form-editor.html">
 
   <style is="custom-style" include="demo-pages-shared-styles">
@@ -38,16 +38,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body unresolved>
   <div class="vertical-section-container centered">
     <h3>Empty editor</h3>
+
     <arc-demo-snippet>
       <template>
         <headers-form-editor value="{{headers1value}}"></headers-form-editor>
         <output>[[headers1value]]</output>
       </template>
     </arc-demo-snippet>
+
     <h3>With model</h3>
     <arc-demo-snippet hmodel='[{"name":"Content-Type","value":"", "required":true, "inputLabel":"Enter content type"}]'>
       <template>
-        <headers-form-editor value="{{headers2value}}" headers-model="[[hmodel]]"></headers-form-editor>
+        <headers-form-editor value="{{headers2value}}" model="[[hmodel]]"></headers-form-editor>
         <output>[[headers2value]]</output>
       </template>
     </arc-demo-snippet>
@@ -55,7 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h3>Predefined values</h3>
     <arc-demo-snippet hmodel='[{"name":"Content-Type","value":"", "required":true, "inputLabel":"Enter content type"},{"name":"X-Token","enum":["token #1","token #2","token #3"], "required":true, "isEnum": true, "inputLabel": "X-Token","description":"Select debug token to use with this API."}]'>
       <template>
-        <headers-form-editor value="{{headers2value}}" headers-model="[[hmodel]]"></headers-form-editor>
+        <headers-form-editor value="{{headers2value}}" model="[[hmodel]]"></headers-form-editor>
         <output>[[headers2value]]</output>
       </template>
     </arc-demo-snippet>
@@ -63,10 +65,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h3>The narow layout</h3>
     <arc-demo-snippet hmodel='[{"name":"Content-Type","value":"", "required":true, "inputLabel":"Header value"},{"name":"X-Token","enum":["token #1","token #2","token #3"], "required":true, "isEnum": true, "inputLabel": "X-Token","description":"Select debug token to use with this API."}]'>
       <template>
-        <headers-form-editor narrow value="{{headers2value}}" headers-model="[[hmodel]]"></headers-form-editor>
+        <headers-form-editor narrow value="{{headers2value}}" model="[[hmodel]]"></headers-form-editor>
         <output>[[headers2value]]</output>
       </template>
     </arc-demo-snippet>
+  </div>
+
+  <headers-support-authorization></headers-support-authorization>
+  <headers-support-content-type></headers-support-content-type>
+  <headers-support-cookie></headers-support-cookie>
+  <headers-support-wsse></headers-support-wsse>
+
+  <div class="vertical-section-container centered">
+    <h4>Additional elements used with this demo page</h4>
+    <ul>
+      <li><a href="https://github.com/advanced-rest-client/headers-support">headers-support</a></li>
+    </ul>
   </div>
 </body>
 </html>
