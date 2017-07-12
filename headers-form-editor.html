@@ -765,7 +765,8 @@ Custom property | Description | Default
         var event = this.fire('headers-support-lookup', {
           header: name
         }, {
-          cancelable: true
+          cancelable: true,
+          composed: true
         });
         this.set(['headersModel', index, 'fillSupport'], event.defaultPrevented);
       },
@@ -783,7 +784,8 @@ Custom property | Description | Default
           header: item.name,
           value: item.value
         }, {
-          cancelable: true
+          cancelable: true,
+          composed: true
         });
 
         if (!event.defaultPrevented) {
