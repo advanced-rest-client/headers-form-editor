@@ -1,3 +1,9 @@
+<a name="0.1.12"></a>
+## [0.1.12](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.10...0.1.12) (2017-10-23)
+
+
+
+
 <a name="0.1.11"></a>
 ## [0.1.11](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.10...v0.1.11) (2017-07-12)
 
