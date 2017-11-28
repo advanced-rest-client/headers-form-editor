@@ -289,7 +289,7 @@ Custom property | Description | Default
         var headers = this.headersToJSON(value);
         if (!headers || !headers.length) {
           this._internalValueChange = true;
-          this.set('model', []);
+          this.set('model', [this.createModel()]);
           this._internalValueChange = false;
           return;
         }
