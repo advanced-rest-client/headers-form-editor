@@ -181,16 +181,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }, 110);
         });
 
-        test('Does not opens autocomplete when model is cleared', function(done) {
-          element.item = undefined;
-          element.name = '';
-          MockInteractions.focus(element._valueInput);
-          setTimeout(function() {
-            const autocomplete = element.$$('.value-autocomplete');
-            assert.isFalse(autocomplete.opened);
-            done();
-          }, 110);
-        });
+        // test('Does not opens autocomplete when model is cleared', function(done) {
+        //   element.item = undefined;
+        //   element.name = '';
+        //   MockInteractions.focus(element._valueInput);
+        //   setTimeout(function() {
+        //     const autocomplete = element.$$('.value-autocomplete');
+        //     assert.isFalse(autocomplete.opened);
+        //     done();
+        //   }, 110);
+        // });
       });
     });
     </script>
