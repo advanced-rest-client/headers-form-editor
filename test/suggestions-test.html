@@ -1,0 +1,199 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/test-helpers.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <link rel="import" href="../headers-form-editor-item.html">
+    <link rel="import" href="../../arc-definitions/arc-definitions.html">
+  </head>
+  <body>
+    <arc-definitions></arc-definitions>
+
+    <test-fixture id="suggestions">
+      <template>
+        <headers-form-editor-item></headers-form-editor-item>
+      </template>
+    </test-fixture>
+
+    <script>
+    /* global fixture, assert, TestHelpers, MockInteractions, sinon */
+    /* jshint esnext: true */
+    suite('Name suggestions', function() {
+      const model = {
+        name: '',
+        value: '',
+        type: 'string',
+        isEnum: false,
+        inputLabel: 'Header value',
+        inputType: 'text',
+        inputPlaceholder: undefined,
+        inputFloatLabel: false,
+        fillSupport: false
+      };
+      var element;
+      var input;
+      var autocomplete;
+      setup(function() {
+        element = fixture('suggestions');
+        element.item = model;
+        element.name = '';
+        TestHelpers.forceXIfStamp(element);
+        input = element.$$('.name-change-input');
+        autocomplete = element.$$('.name-autocomplete');
+      });
+
+      test('Sets autocomplete target when name is focused', function() {
+        MockInteractions.focus(input);
+        assert.isTrue(autocomplete.target === input);
+      });
+
+      test('Queries for headers names when focusing name', function(done) {
+        autocomplete.target = input;
+        var spy = sinon.spy();
+        element.addEventListener('query-headers', spy);
+        MockInteractions.focus(input);
+        setTimeout(function() {
+          assert.isTrue(spy.called);
+          done();
+        }, 110);
+      });
+
+      test('Suggestions are set', function(done) {
+        autocomplete.target = input;
+        MockInteractions.focus(input);
+        setTimeout(function() {
+          assert.typeOf(autocomplete.source, 'array');
+          done();
+        }, 110);
+      });
+
+      test('Selecting autocomplete item updates the name', function(done) {
+        autocomplete.target = input;
+        MockInteractions.focus(input);
+        setTimeout(function() {
+          autocomplete.selectNext();
+          autocomplete.acceptSelection();
+          setTimeout(function() {
+            assert.equal(element.name, autocomplete.source[1]);
+          }, 5);
+          done();
+        }, 110);
+      });
+    });
+
+    suite('Value autocomplete', function() {
+      const model = {
+        name: 'content-type',
+        value: '',
+        type: 'string',
+        isEnum: false,
+        inputLabel: 'Header value',
+        inputType: 'text',
+        inputPlaceholder: undefined,
+        inputFloatLabel: false,
+        fillSupport: false
+      };
+      suite('Empty item', function() {
+        var element;
+        setup(function() {
+          element = fixture('suggestions');
+        });
+
+        test('_valueInput is not set without model', function() {
+          assert.isUndefined(element._valueInput);
+        });
+
+        test('valueSuggestions is undefined', function() {
+          assert.isUndefined(element.valueSuggestions);
+        });
+
+        test('_valueInput is set after setting a model', function() {
+          element.item = model;
+          assert.ok(element._valueInput);
+        });
+
+        test('valueSuggestions are set after setting a model', function() {
+          element.item = model;
+          element.name = model.name;
+          assert.typeOf(element.valueSuggestions, 'array');
+        });
+      });
+
+      suite('Item with model', function() {
+        var element;
+        setup(function() {
+          element = fixture('suggestions');
+          element.item = model;
+          element.name = model.name;
+          TestHelpers.forceXIfStamp(element);
+        });
+
+        test('_valueInput is set after setting a model', function() {
+          element.item = model;
+          assert.ok(element._valueInput);
+        });
+
+        test('valueSuggestions are set after setting a model', function() {
+          element.item = model;
+          element.name = model.name;
+          assert.typeOf(element.valueSuggestions, 'array');
+        });
+
+        test('valueSuggestions are cleared when removing model', function() {
+          element.item = undefined;
+          element.name = '';
+          assert.isUndefined(element.valueSuggestions);
+        });
+
+        test('Focusing input opens autocomplete', function(done) {
+          MockInteractions.focus(element._valueInput);
+          setTimeout(function() {
+            const autocomplete = element.$$('.value-autocomplete');
+            assert.isTrue(autocomplete.opened);
+            done();
+          }, 110);
+        });
+
+        test('Selecting autocomplete item updates the value', function(done) {
+          MockInteractions.focus(element._valueInput);
+          setTimeout(function() {
+            const autocomplete = element.$$('.value-autocomplete');
+            autocomplete.selectNext();
+            autocomplete.acceptSelection();
+            setTimeout(function() {
+              assert.equal(element.value, element.valueSuggestions[1]);
+            }, 5);
+            done();
+          }, 110);
+        });
+
+        test('Does not opens autocomplete when model is cleared', function(done) {
+          element.item = undefined;
+          element.name = '';
+          MockInteractions.focus(element._valueInput);
+          setTimeout(function() {
+            const autocomplete = element.$$('.value-autocomplete');
+            assert.isFalse(autocomplete.opened);
+            done();
+          }, 110);
+        });
+      });
+    });
+    </script>
+
+  </body>
+</html>
