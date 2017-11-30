@@ -37,8 +37,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         element = fixture('basic');
       });
 
-      test('model is empty', function() {
-        assert.lengthOf(element.model, 0);
+      test('model contains empty value by default', function() {
+        assert.lengthOf(element.model, 1);
+        assert.equal(element.model[0].name, '');
+        assert.equal(element.model[0].value, '');
       });
 
       test('Fires request-headers-changed event', function() {
