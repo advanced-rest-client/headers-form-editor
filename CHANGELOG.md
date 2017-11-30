@@ -1,3 +1,24 @@
+<a name="0.1.13"></a>
+## [0.1.13](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.12...0.1.13) (2017-11-30)
+
+
+### Fix
+
+* Fixes #2 - display empty row for empty value ([696b1ce4b337bf45f1e222a6dbd208d13a63a2da](https://github.com/advanced-rest-client/headers-form-editor/commit/696b1ce4b337bf45f1e222a6dbd208d13a63a2da)), closes [#2](https://github.com/advanced-rest-client/headers-form-editor/issues/2)
+
+### New
+
+* Added autocomplete for header values. ([98018e46c0a5bb8c2556c260cae4f04e28047397](https://github.com/advanced-rest-client/headers-form-editor/commit/98018e46c0a5bb8c2556c260cae4f04e28047397))
+
+### Update
+
+* Beautified the file. ([8ff36c2f07c2f07686fc773da2dd48f2a10a8518](https://github.com/advanced-rest-client/headers-form-editor/commit/8ff36c2f07c2f07686fc773da2dd48f2a10a8518))
+* Removed tests to investigate IE 11 issue. ([4387454e9adc757509e9906e5c93a3e6a51bf330](https://github.com/advanced-rest-client/headers-form-editor/commit/4387454e9adc757509e9906e5c93a3e6a51bf330))
+* Updated arc-definition element and added load-on-demand. ([eb30399e6babf32a6105756c421ca74f93edf0f2](https://github.com/advanced-rest-client/headers-form-editor/commit/eb30399e6babf32a6105756c421ca74f93edf0f2))
+* Updated tests configuration. ([77bc59b03653bdb16d4f10bf285cb452678fa7a9](https://github.com/advanced-rest-client/headers-form-editor/commit/77bc59b03653bdb16d4f10bf285cb452678fa7a9))
+
+
+
 <a name="0.1.12"></a>
 ## [0.1.12](https://github.com/advanced-rest-client/headers-form-editor/compare/0.1.10...0.1.12) (2017-10-23)
 

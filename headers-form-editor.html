@@ -138,7 +138,7 @@ Custom property | Description | Default
     <div class="add-action-container">
       <paper-button class="action-button" on-tap="add" hidden$="[[disallowCustom]]">Add header</paper-button>
     </div>
-    <arc-definitions></arc-definitions>
+    <arc-definitions load-on-demand></arc-definitions>
   </template>
   <script>
   (function() {
@@ -289,7 +289,7 @@ Custom property | Description | Default
         var headers = this.headersToJSON(value);
         if (!headers || !headers.length) {
           this._internalValueChange = true;
-          this.set('model', []);
+          this.set('model', [this.createModel()]);
           this._internalValueChange = false;
           return;
         }
