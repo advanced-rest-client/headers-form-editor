@@ -83,13 +83,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('Selecting autocomplete item updates the name', function(done) {
         autocomplete.target = input;
+        TestHelpers.forceXIfStamp(element);
         MockInteractions.focus(input);
         setTimeout(function() {
           autocomplete.selectNext();
           autocomplete.acceptSelection();
           setTimeout(function() {
             assert.equal(element.name, autocomplete.source[1]);
-          }, 5);
+          }, 10);
           done();
         }, 110);
       });
