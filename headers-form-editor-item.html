@@ -28,6 +28,7 @@ the License.
 <link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../events-target-behavior/events-target-behavior.html">
 <link rel="import" href="../arc-polyfills/arc-polyfills.html">
+<link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
 <!--
 A headers form item that renders input fields.
 
@@ -90,17 +91,17 @@ Custom property | Description | Default
     }
 
     .input {
-      @apply(--layout-horizontal);
-      @apply(--layout-flex);
+      @apply --layout-horizontal;
+      @apply --layout-flex;
     }
 
     :host([narrow]) .input {
-      @apply(--layout-vertical);
+      @apply --layout-vertical;
       margin-bottom: 12px;
     }
 
     .docs {
-      @apply(--arc-font-common-base);
+      @apply --arc-font-common-base;
       font-size: 13px !important;
       font-weight: 200;
       line-height: 24px;
@@ -135,14 +136,14 @@ Custom property | Description | Default
     }
 
     .value-input {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-      @apply(--layout-flex);
+      @apply --layout-horizontal;
+      @apply --layout-center;
+      @apply --layout-flex;
     }
 
     .value-input paper-dropdown-menu,
     .value-input .header-value-container {
-      @apply(--layout-flex);
+      @apply --layout-flex;
     }
 
     .header-name {
@@ -155,6 +156,7 @@ Custom property | Description | Default
     </style>
     <div class="value-input">
       <template is="dom-if" if="[[item.isEnum]]" restamp>
+        <paper-toggle-button class="enable-button" checked="{{item.enabled}}" title="Enable / disable parameter"></paper-toggle-button>
         <paper-dropdown-menu label="[[item.inputLabel]]" name="[[name]]" required$="[[item.required]]">
           <paper-listbox class="dropdown-content" attr-for-selected="data-value" selected="{{value}}">
             <template is="dom-repeat" items="[[item.enum]]">
@@ -165,12 +167,12 @@ Custom property | Description | Default
       </template>
       <template is="dom-if" if="[[!item.isEnum]]" restamp>
         <div class="input">
+          <paper-toggle-button class="enable-button" checked="{{item.enabled}}" title="Enable / disable parameter"></paper-toggle-button>
           <paper-input-container class="header-name" auto-validate>
             <label>Header name</label>
             <input
               is="iron-input"
               class="name-change-input"
-              on-focus="_headerNameFocus"
               type="text"
               value="{{name::input}}"
               required
@@ -224,7 +226,7 @@ Custom property | Description | Default
       </iron-collapse>
     </template>
     <template is="dom-if" if="[[!item.isEnum]]" restamp>
-      <paper-autocomplete class="name-autocomplete" open-on-focus on-query="_queryHeaderName" on-selected="_onHeaderNameSelected"></paper-autocomplete>
+      <paper-autocomplete class="name-autocomplete" open-on-focus on-query="_queryHeaderName" on-selected="_onHeaderNameSelected" target="[[_nameInput]]" position-target="[[_nameInput]]"></paper-autocomplete>
     </template>
     <template is="dom-if" if="[[_valueInput]]" restamp="true">
       <paper-autocomplete class="value-autocomplete" open-on-focus on-selected="_onHeaderValueSelected" target="[[_valueInput]]" position-target="[[_valueInput]]" dynamic-align vertical-align="top" horizontal-align="left" vertical-offset="26" source="[[valueSuggestions]]"></paper-autocomplete>
@@ -299,7 +301,8 @@ Custom property | Description | Default
          */
         valueSuggestions: Array,
         // Reference to header value input.
-        _valueInput: Object
+        _valueInput: Object,
+        _nameInput: Object
       },
 
       attached: function() {
@@ -320,6 +323,7 @@ Custom property | Description | Default
         if (model && !model.isEnum && !this._valueInput) {
           Polymer.dom.flush();
           this._valueInput = this.$$('.value-change-input');
+          this._nameInput = this.$$('.name-change-input');
         }
       },
 
@@ -338,14 +342,6 @@ Custom property | Description | Default
         this.fire('remove-header-form-item', {}, {
           bubbles: false
         });
-      },
-
-      // Handler for header name field focus
-      _headerNameFocus: function(e) {
-        var autocomplete = this.$$('paper-autocomplete');
-        if (!autocomplete.target) {
-          autocomplete.target = e.target;
-        }
       },
 
       _headerValueFocus: function() {

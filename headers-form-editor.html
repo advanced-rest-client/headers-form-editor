@@ -12,26 +12,10 @@ License for the specific language governing permissions and limitations under
 the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../iron-form/iron-form.html">
-<link rel="import" href="../iron-collapse/iron-collapse.html">
-<link rel="import" href="../paper-styles/paper-styles.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../paper-autocomplete/paper-autocomplete.html">
-<link rel="import" href="../paper-input/paper-input.html">
-<link rel="import" href="../paper-input/paper-input-container.html">
-<link rel="import" href="../paper-input/paper-input-error.html">
-<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../paper-listbox/paper-listbox.html">
-<link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="../arc-definitions/arc-definitions.html">
 <link rel="import" href="../headers-parser-behavior/headers-parser-behavior.html">
-<link rel="import" href="../marked-element/marked-element.html">
-<link rel="import" href="../markdown-styles/markdown-styles.html">
-<link rel="import" href="../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../events-target-behavior/events-target-behavior.html">
 <link rel="import" href="headers-form-editor-item.html">
 <!--
@@ -96,7 +80,6 @@ Custom property | Description | Default
 -->
 <dom-module id="headers-form-editor">
   <template strip-whitespace>
-    <style include="markdown-styles"></style>
     <style>
      :host {
       display: block;
@@ -172,6 +155,7 @@ Custom property | Description | Default
           value: '',
           notify: true
         },
+        headers: Array,
         // If set, the form will be rendered in mobile friendly view.
         narrow: Boolean,
         /**
@@ -232,6 +216,7 @@ Custom property | Description | Default
         item.value = item.value || '';
         item.name = item.name || '';
         item.type = item.type || 'string';
+        item.enabled = true;
         item.fillSupport = item.fillSupport || false;
         item.isEnum = !!(item.name && item.enum && item.enum.length);
         item.inputLabel = item.isEnum ? item.name : 'Header value';
@@ -326,6 +311,9 @@ Custom property | Description | Default
             }
           }
         } else {
+          if (!this.model) {
+            this.model = [];
+          }
           for (i = 0, len = headers.length; i < len; i++) {
             item = this._modelFromObject(headers[i]);
             this.push('model', item);
